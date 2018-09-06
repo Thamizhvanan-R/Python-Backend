@@ -28,6 +28,7 @@ DEBUG = True
 SITE_ID = 1
 
 ALLOWED_HOSTS = [
+    "127.0.0.1",
     "agjee7yg.apps.lair.io",
     "angular-tham-application.stackblitz.io"]
 
@@ -47,12 +48,16 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'corsheaders',
     'api',
     'App1',
-    'UserAuthentication'
+    'UserAuthentication',
+    'request'
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,6 +70,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'request_logging.middleware.LoggingMiddleware',
+    'request.middleware.RequestMiddleware'
 ]
 
 ROOT_URLCONF = 'MyApp.urls'
@@ -118,7 +125,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'DEBUG',  # change debug level as appropiate
+            'propagate': False,
+        },
+    },
+}
 
+
+'request.plugins.LatestRequests';
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
