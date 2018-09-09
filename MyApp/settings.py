@@ -70,7 +70,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'request_logging.middleware.LoggingMiddleware',
+  #  'request_logging.middleware.LoggingMiddleware',
     'request.middleware.RequestMiddleware'
 ]
 

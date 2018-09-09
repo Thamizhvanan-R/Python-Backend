@@ -14,3 +14,6 @@ django-request-logging = "*"
 pillow = "*"
 
 [dev-packages]
+pylint = "*"
+"autopep8" = "*"
+black = "*"

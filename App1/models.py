@@ -9,11 +9,17 @@ class address(models.Model):
     City = models.CharField(max_length = 50,help_text="Current city")
     Pincode = models.IntegerField(help_text="zip code of the locality")
 
+    def update_field(self, key, value):
+     # This will raise an AttributeError if the key isn't an attribute
+     # of your model
+     getattr(self, key)
+     setattr(self, key, value)
+
     def __str__(self):
         return self.Door+","+self.Street+","+self.City+" - "+str(self.Pincode)
 
-class user(models.Model):
-    BasicDetail = models.OneToOneField(settings.AUTH_USER_MODEL,
+class Profile(models.Model):
+    User = models.OneToOneField(settings.AUTH_USER_MODEL,
                                        on_delete=models.CASCADE,blank=True,null=True)
     GENDERS=(
     ('Male','Male'),
@@ -25,4 +31,4 @@ class user(models.Model):
     Address = models.OneToOneField(address,on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self):
-        return self.BasicDetail
+        return str(str(self.User)+"\n Address :"+str(self.Address))
