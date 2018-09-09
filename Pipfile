@@ -15,5 +15,8 @@ pillow = "*"
 
 [dev-packages]
 pylint = "*"
+<<<<<<< Updated upstream
 "autopep8" = "*"
 black = "*"
+=======
+>>>>>>> Stashed changes

@@ -1,7 +1,11 @@
 {
     "_meta": {
         "hash": {
+<<<<<<< Updated upstream
             "sha256": "9aeafba59cca8bcadc7323b0a9b84baea9697204ad8be953d163f5cb8577a430"
+=======
+            "sha256": "29d64068cda0978c728613065bccf0fc8526373c6104ee79a8717338ebfb5566"
+>>>>>>> Stashed changes
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -198,6 +202,7 @@
             ],
             "version": "==2.0.4"
         },
+<<<<<<< Updated upstream
         "autopep8": {
             "hashes": [
                 "sha256:655e3ee8b4545be6cfed18985f581ee9ecc74a232550ee46e9797b6fbf4f336d"
@@ -205,6 +210,8 @@
             "index": "pypi",
             "version": "==1.4"
         },
+=======
+>>>>>>> Stashed changes
         "colorama": {
             "hashes": [
                 "sha256:463f8483208e921368c9f306094eb6f725c6ca42b0f97e313cb5d5512459feda",
@@ -263,6 +270,7 @@
             ],
             "version": "==0.6.1"
         },
+<<<<<<< Updated upstream
         "pycodestyle": {
             "hashes": [
                 "sha256:cbc619d09254895b0d12c2c691e237b2e91e9b2ecf5e84c26b35400f93dcfb83",
@@ -270,6 +278,8 @@
             ],
             "version": "==2.4.0"
         },
+=======
+>>>>>>> Stashed changes
         "pylint": {
             "hashes": [
                 "sha256:1d6d3622c94b4887115fe5204982eee66fdd8a951cf98635ee5caee6ec98c3ec",
