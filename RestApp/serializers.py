@@ -2,8 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Profile,address
 from drf_extra_fields.fields import Base64ImageField
-from DjangoAppEnv.Lib.functools import partial
-from rest_framework.renderers import JSONRenderer
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,6 +50,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         return User
     
     def _updateAddress(self,Address,data):
+        if not Address:
+            Address = address()
         Address.Door = data['Door']
         Address.Street = data['Street']
         Address.City = data['City']

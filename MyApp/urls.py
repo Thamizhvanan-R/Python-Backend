@@ -25,9 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
-    url(r'',include('UserAuthentication.urls')),
-    url(r'^api/',include('api.urls')),
-    url(r'^app/',include('App1.urls'))
+    url(r'^restapp/',include('RestApp.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
