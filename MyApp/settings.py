@@ -29,6 +29,7 @@ SITE_ID = 1
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
+    "localhost",
     "agjee7yg.apps.lair.io",
     "angular-tham-application.stackblitz.io"]
 
@@ -70,7 +71,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.common.CommonMiddleware',
-  #  'request_logging.middleware.LoggingMiddleware',
+    # 'request_logging.middleware.LoggingMiddleware',
     'request.middleware.RequestMiddleware'
 ]
 
@@ -162,3 +163,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'

@@ -4,50 +4,38 @@ from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser,\
+    FileUploadParser
 from django.template.context_processors import request
 from django.http import HttpResponse, JsonResponse
+from rest_framework.decorators import renderer_classes
+from rest_framework.renderers import JSONRenderer
+from DjangoAppEnv.Lib.functools import partial
 
 # Create your views here.
 
 class CreateView(APIView):
     permission_classes = (IsAuthenticated,)
     authentication_classes = (TokenAuthentication,BasicAuthentication)
+    parser_classes = (MultiPartParser,JSONParser,FileUploadParser)
 
     def get(self,request,format=None):
         try:
             us = Profile.objects.get(User=request.user)
+            print(us)
             serializer = ProfileSerializer(us)
             return JsonResponse(serializer.data,safe=False)
-        except :
+        except Exception as err:
+            print(err)
             return HttpResponse(status=404)
-
+        
     def post(self,request):
-        try:
+        profile,created = Profile.objects.get_or_create(User = request.user)
+        serializer = ProfileSerializer(profile,data= request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data,safe=False)
+        print(serializer.errors)
+        return HttpResponse(JSONRenderer().render(serializer.errors), status=400)
 
-            print(request.data)
-            Profile1, created = Profile.objects.get_or_create(User = request.user)
-            Profile1.Gender = request.data['detail']['Gender']
-            Profile1.Phone = request.data['detail']['Phone']
-
-            if(not Profile1.Address):
-                Profile1.Address = address()
-            Address = Profile1.Address
-            for key, value in request.data['detail']['Address'].items():
-                Address.update_field(key, value)
-            Address.save()
-            Profile1.Address = Address
-
-            user = Profile1.User
-            for key, value in request.data['user'].items():
-                setattr(user,key,value)
-            user.save()
-            Profile1.User = user
-            Profile1.save()
-            print("*********\n")
-            print(Profile1)
-            print("*********\n")
-            return HttpResponse(status=200)
-        except(ex):
-            print(ex)
-            return HttpResponse(status=500)
-
+#
