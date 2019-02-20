@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from corsheaders.middleware import ACCESS_CONTROL_ALLOW_CREDENTIALS,\
+    ACCESS_CONTROL_ALLOW_ORIGIN
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,6 +32,7 @@ SITE_ID = 1
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    "192.168.2.20",
     "agjee7yg.apps.lair.io",
     "angular-tham-application.stackblitz.io"]
 
@@ -74,7 +77,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'MyApp.urls'
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200',
+    "192.168.2.20:4200",
+)
+CORS_ALLOW_CREDENTIALS = True
 
 TEMPLATES = [
     {
@@ -162,4 +169,4 @@ USE_TZ = True
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(ENV_PATH, '../media/')
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+MEDIA_URL = 'http://localhost:8000/media/'

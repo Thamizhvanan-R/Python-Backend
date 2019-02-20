@@ -2,11 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 import os
+from idlelib.iomenu import blank_re
+from rest_framework.fields import ReadOnlyField
 
 # Create your models here.
 
 def filename(instance, filename):
         respath = os.path.join('images/', instance.User.username,"profile"+datetime.now().strftime('%Y%m%d%H%M%S')+"."+filename.split('.')[-1])
+        if os.path.exists(respath):
+            os.remove(respath)
+        return respath
+    
+def postname(instance, filename):
+        respath = os.path.join('images/', instance.owner.username,"posts"+datetime.now().strftime('%Y%m%d%H%M%S')+"."+filename.split('.')[-1])
         if os.path.exists(respath):
             os.remove(respath)
         return respath
@@ -21,17 +29,25 @@ class address(models.Model):
         return self.Door+","+self.Street+","+self.City+" - "+str(self.Pincode)
 
 class Profile(models.Model):
-    User = models.OneToOneField(User,on_delete=models.CASCADE,blank=True,null=True)
+    User = models.OneToOneField(User,on_delete=models.CASCADE)
     GENDERS=(
     ('Male','Male'),
     ('Female','Female'),
     ('Others','Others'))
-    Gender = models.CharField(max_length = 10,choices= GENDERS)
-    Phone = models.CharField(max_length = 15,blank=True,null=True)
-    Avatar = models.ImageField(upload_to= filename,blank=True,null=-True)
-    Address = models.OneToOneField(address,on_delete=models.CASCADE,blank=True,null=True)
+    Gender = models.CharField(max_length = 10,choices= GENDERS,blank = True,null=True)
+    Phone = models.CharField(max_length = 15,blank = True,null=True)
+    Avatar = models.ImageField(upload_to= filename,blank = True,null=True)
+    Address = models.OneToOneField(address,on_delete=models.CASCADE,blank = True,null=True)
         
     def __str__(self):
         return str(str(self.User)+"\n Address :"+str(self.Address))
 
+class Post(models.Model):
+    owner = models.ForeignKey(User,on_delete=models.DO_NOTHING)
+    image = models.ImageField(upload_to= postname,blank=True,null=True)
+    created = models.DateTimeField(default = datetime.now())
+    description = models.CharField(max_length=200,blank=True)
+
+    def __str__(self):
+        return str(self.owner.username)
 

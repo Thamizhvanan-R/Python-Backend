@@ -2,6 +2,10 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Profile,address
 from drf_extra_fields.fields import Base64ImageField
+import django
+from _overlapped import NULL
+from RestApp.models import Post
+from rest_framework.fields import ReadOnlyField
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,42 +26,44 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('User','Gender','Avatar','Phone','Address')
         depth = 1
-        
-    def create(self, validated_data):
-        print("Create called")
-        return serializers.ModelSerializer.create(self, validated_data)
-    
+           
     def update(self, instance, validated_data):
-        print("IN Update")
-        print(instance)
-        self._updateProfile(instance, validated_data)
-        return instance
+        try:
+            if (not instance.Address):
+                instance.Address = address()
+            self._update(instance, validated_data)
+            return instance
+        except AttributeError as err:
+            print(err)
+            raise serializers.ValidationError(err)
         
-    def _updateProfile(self,profile,data):
-        profile.Gender = data['Gender']
-        profile.Phone = data['Phone']
-        profile.Avatar = data['Avatar']
-        profile.User = self._updateUser(profile.User,data['User'])
-        profile.Address = self._updateAddress(profile.Address,data['Address'])
-        profile.save()
-        return profile
+    def _update(self,model,data):
+        for key,val in data.items():
+            if(isinstance(val,dict)):
+                innermodel = getattr(model, key)
+                self.updatefield(model, key,(self._update(innermodel,val)))
+            else:
+                self.updatefield(model, key, val)
+        model.save()
+        return model
+            
+    def updatefield(self,model,key,value):
+        field = getattr(model,key,NULL)
+        if field != NULL:
+            setattr(model,key,value)
+        else:
+            raise AttributeError
+           
+           
+class PostSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source = 'owner.username')
+    class Meta:
+        model = Post
+        fields = '__all__'
+            
+            
         
-    def _updateUser(self,User,data):
-     #   User.username = data['username']
-        User.first_name = data['first_name']
-        User.last_name = data['last_name']
-        User.save()
-        return User
-    
-    def _updateAddress(self,Address,data):
-        if not Address:
-            Address = address()
-        Address.Door = data['Door']
-        Address.Street = data['Street']
-        Address.City = data['City']
-        Address.Pincode = data['Pincode']
-        Address.save()
-        return Address;
+  
         
         
    
