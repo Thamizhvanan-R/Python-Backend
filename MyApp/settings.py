@@ -15,11 +15,10 @@ import django_heroku
 from corsheaders.middleware import ACCESS_CONTROL_ALLOW_CREDENTIALS,\
     ACCESS_CONTROL_ALLOW_ORIGIN
 
-django_heroku.settings(locals())
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -173,3 +172,4 @@ ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(ENV_PATH, '../media/')
 STATIC_URL = '/static/'
 MEDIA_URL = 'http://localhost:8000/media/'
+django_heroku.settings(locals())
