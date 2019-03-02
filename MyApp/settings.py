@@ -80,7 +80,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'MyApp.urls'
 CORS_ORIGIN_WHITELIST = (
-    'localhost:4200',
+    "localhost:4200",
     "192.168.2.20:4200",
 )
 CORS_ALLOW_CREDENTIALS = True
