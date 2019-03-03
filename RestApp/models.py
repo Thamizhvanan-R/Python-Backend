@@ -6,16 +6,16 @@ import os
 # Create your models here.
 
 def filename(instance, filename):
-        respath = os.path.join('images/', instance.User.username,"profile"+datetime.now().strftime('%Y%m%d%H%M%S')+"."+filename.split('.')[-1])
-        if os.path.exists(respath):
-            os.remove(respath)
-        return respath
+    respath = os.path.join('images/', instance.User.username,"profile"+datetime.now().strftime('%Y%m%d%H%M%S')+"."+filename.split('.')[-1])
+    if os.path.exists(respath):
+        os.remove(respath)
+    return respath
     
 def postname(instance, filename):
-        respath = os.path.join('images/', instance.owner.username,"posts"+datetime.now().strftime('%Y%m%d%H%M%S')+"."+filename.split('.')[-1])
-        if os.path.exists(respath):
-            os.remove(respath)
-        return respath
+    respath = os.path.join('images/', instance.owner.username,"posts"+datetime.now().strftime('%Y%m%d%H%M%S')+"."+filename.split('.')[-1])
+    if os.path.exists(respath):
+        os.remove(respath)
+    return respath
 
 class address(models.Model):
     Door = models.CharField(max_length = 50,help_text=" Door No of the house")
