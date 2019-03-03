@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 import os
-from idlelib.iomenu import blank_re
-from rest_framework.fields import ReadOnlyField
 
 # Create your models here.
 
