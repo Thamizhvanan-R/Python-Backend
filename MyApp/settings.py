@@ -31,12 +31,7 @@ DEBUG = True
 
 SITE_ID = 1
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    "192.168.2.20",
-    "agjee7yg.apps.lair.io",
-    "angular-tham-application.stackblitz.io"]
+ALLOWED_HOSTS = ["djangobackend.herokuapp.com",]
 
 
 # Application definition
@@ -79,10 +74,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'MyApp.urls'
-CORS_ORIGIN_WHITELIST = (
-    "localhost:4200",
-    "192.168.2.20:4200",
-)
+CORS_ORIGIN_WHITELIST = ("angular-9bcfa.firebaseapp.com")
 CORS_ALLOW_CREDENTIALS = True
 
 TEMPLATES = [
