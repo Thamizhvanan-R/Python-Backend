@@ -2,16 +2,14 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Profile,address
 from drf_extra_fields.fields import Base64ImageField
-import django
 from _overlapped import NULL
 from RestApp.models import Post
-from rest_framework.fields import ReadOnlyField
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email')
-        
+
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = address
@@ -26,7 +24,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('User','Gender','Avatar','Phone','Address')
         depth = 1
-           
+
     def update(self, instance, validated_data):
         try:
             if (not instance.Address):
@@ -36,7 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         except AttributeError as err:
             print(err)
             raise serializers.ValidationError(err)
-        
+
     def _update(self,model,data):
         for key,val in data.items():
             if(isinstance(val,dict)):
@@ -46,25 +44,24 @@ class ProfileSerializer(serializers.ModelSerializer):
                 self.updatefield(model, key, val)
         model.save()
         return model
-            
+
     def updatefield(self,model,key,value):
         field = getattr(model,key,NULL)
         if field != NULL:
             setattr(model,key,value)
         else:
             raise AttributeError
-           
-           
+
+
 class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source = 'owner.username')
     class Meta:
         model = Post
         fields = '__all__'
-            
-            
-        
-  
-        
-        
-   
-        
+
+
+
+
+
+
+
