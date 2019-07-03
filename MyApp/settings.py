@@ -11,12 +11,12 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from corsheaders.middleware import ACCESS_CONTROL_ALLOW_CREDENTIALS,\
+
+from corsheaders.middleware import ACCESS_CONTROL_ALLOW_CREDENTIALS, \
     ACCESS_CONTROL_ALLOW_ORIGIN
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -35,7 +35,6 @@ ALLOWED_HOSTS = [
     "192.168.2.20",
     "agjee7yg.apps.lair.io",
     "angular-tham-application.stackblitz.io"]
-
 
 # Application definition
 
@@ -78,8 +77,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'MyApp.urls'
 CORS_ORIGIN_WHITELIST = (
-    'localhost:4200',
-    "192.168.2.20:4200",
+    'http://localhost:4200',
+    "http://192.168.2.20:4200",
 )
 CORS_ALLOW_CREDENTIALS = True
 
@@ -101,7 +100,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MyApp.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -111,7 +109,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -148,7 +145,6 @@ LOGGING = {
     },
 }
 
-
 'request.plugins.LatestRequests';
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -162,7 +158,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

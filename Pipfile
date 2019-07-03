@@ -1,22 +1,20 @@
 [[source]]
-url = "https://pypi.python.org/simple"
-verify_ssl = true
 name = "pypi"
-
-[packages]
-django = "==2.0"
-djangorestframework = "*"
-django-allauth = "*"
-django-rest-auth = "*"
-django-cors-headers = "*"
-django-request = "*"
-django-request-logging = "*"
-pillow = "*"
+url = "https://pypi.org/simple"
+verify_ssl = true
 
 [dev-packages]
-pylint = "*"
-<<<<<<< Updated upstream
-"autopep8" = "*"
-black = "*"
-=======
->>>>>>> Stashed changes
+
+[packages]
+django = "*"
+django-admin = "*"
+django-cors-headers = "*"
+djangorestframework = "*"
+django-rest-auth = "*"
+django-allauth = "*"
+django-request = "*"
+django-extra-fields = "*"
+pillow = "*"
+
+[requires]
+python_version = "3.6"
