@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 import os
-from rest_framework.fields import ReadOnlyField
 
 # Create your models here.
 
@@ -11,7 +10,7 @@ def filename(instance, filename):
         if os.path.exists(respath):
             os.remove(respath)
         return respath
-    
+
 def postname(instance, filename):
         respath = os.path.join('images/', instance.owner.username,"posts"+datetime.now().strftime('%Y%m%d%H%M%S')+"."+filename.split('.')[-1])
         if os.path.exists(respath):
@@ -37,7 +36,7 @@ class Profile(models.Model):
     Phone = models.CharField(max_length = 15,blank = True,null=True)
     Avatar = models.ImageField(upload_to= filename,blank = True,null=True)
     Address = models.OneToOneField(address,on_delete=models.CASCADE,blank = True,null=True)
-        
+
     def __str__(self):
         return str(str(self.User)+"\n Address :"+str(self.Address))
 
